@@ -1,0 +1,8 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://github.com/OlaSuaifan93/Data_Bank/raw/113d976e76f36e797feb8fa28e9caeaaf30c3a18/images_lipedema.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
