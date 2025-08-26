@@ -14,3 +14,8 @@ https://www.youtube.com/watch?v=p1bfK8ZJgkE&list=PLZoTAELRMXVPS-dOaVbAux22vzqdgo
 
 
 
+to view tensorboard:
+
+tensorboard --logdir artifacts/prepare_callbac
+ks/tensorboard_log_dir/
+
