@@ -1,9 +1,11 @@
-from src.cnnclassifier.constants import *
-from src.cnnclassifier.utils.common import read_yaml, create_directories
-from src.cnnclassifier.entity.config_entity import (DataIngestionConfig,
+from cnnclassifier.constants import *
+from cnnclassifier.utils.common import read_yaml, create_directories, save_json
+from pathlib import Path
+from cnnclassifier.entity.config_entity import (DataIngestionConfig,
                                                      PrepareBaseModelConfig,
                                                      PrepareCallbacksConfig,
-                                                     TrainingConfig
+                                                     TrainingConfig,
+                                                     EvaluationConfig
                                                      )
 import os
 import tensorflow as tf
@@ -116,3 +118,14 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+
+    def get_validation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_of_model=Path("artifacts/training/model.h5"),
+            training_data=Path("artifacts/data_ingestion/images_lipedema"),
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config

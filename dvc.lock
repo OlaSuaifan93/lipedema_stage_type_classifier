@@ -1,0 +1,117 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cnnclassifier/pipeline/stage01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 5ad7e4b618eb226e480dd052f57f2e23
+      size: 779
+    - path: src/cnnclassifier/pipeline/stage01_data_ingestion.py
+      hash: md5
+      md5: 1322ffd3ed53ec72b3e779cfc179e3cf
+      size: 886
+    outs:
+    - path: artifacts/data_ingestion/images_lipedema
+      hash: md5
+      md5: aa59f313a892b1f238e70eb6c09f1a86.dir
+      size: 21991364
+      nfiles: 69
+  prepare_base_model:
+    cmd: python src/cnnclassifier/pipeline/stage02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 5ad7e4b618eb226e480dd052f57f2e23
+      size: 779
+    - path: src/cnnclassifier/pipeline/stage02_prepare_base_model.py
+      hash: md5
+      md5: 078f31080a9967ba252af2ee89f196be
+      size: 916
+    params:
+      params.yaml:
+        CLASSES: 20
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.01
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 898b7d8e2677c5e2ba903fe40967a7f0.dir
+      size: 119879848
+      nfiles: 2
+  training:
+    cmd: python src/cnnclassifier/pipeline/stage03_training.py
+    deps:
+    - path: artifacts/data_ingestion/images_lipedema
+      hash: md5
+      md5: aa59f313a892b1f238e70eb6c09f1a86.dir
+      size: 21991364
+      nfiles: 69
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 898b7d8e2677c5e2ba903fe40967a7f0.dir
+      size: 119879848
+      nfiles: 2
+    - path: config/config.yaml
+      hash: md5
+      md5: 5ad7e4b618eb226e480dd052f57f2e23
+      size: 779
+    - path: src/cnnclassifier/components/prepare_callbacks.py
+      hash: md5
+      md5: 145ffbbe62a1f7700e21f02888d68074
+      size: 970
+    - path: src/cnnclassifier/pipeline/stage03_training.py
+      hash: md5
+      md5: f2eec47c0bd3e0254d0d059d923b6db8
+      size: 1224
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 16
+        EPOCHS: 1
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 16da2f0e6eb65065fd5f7770b1754ddf
+      size: 64970248
+  evaluation:
+    cmd: python src/cnnclassifier/pipeline/stage04_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/images_lipedema
+      hash: md5
+      md5: aa59f313a892b1f238e70eb6c09f1a86.dir
+      size: 21991364
+      nfiles: 69
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 16da2f0e6eb65065fd5f7770b1754ddf
+      size: 64970248
+    - path: config/config.yaml
+      hash: md5
+      md5: 5ad7e4b618eb226e480dd052f57f2e23
+      size: 779
+    - path: src/cnnclassifier/pipeline/stage04_evaluation.py
+      hash: md5
+      md5: 2f95c8c78b451c482c08971bb3cd5ede
+      size: 850
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 2214059c73614f2aa92ce0ab54585c0b
+      size: 55
