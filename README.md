@@ -177,3 +177,9 @@ ks/tensorboard_log_dir/
 
 to make runner run in github actions for EC2 in the env write: ./run.sh
 
+when its offline, write this to re-run it:
+
+cd actions-runner
+
+./run.sh
+
