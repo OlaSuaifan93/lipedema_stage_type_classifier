@@ -1,12 +1,10 @@
-FROM python:3.8-slim-buster
+FROM python:3.10-slim
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends awscli && \
-    rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir awscli
 
 WORKDIR /app
 
 COPY . /app
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python3", "app.py"]
