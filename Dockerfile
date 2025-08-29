@@ -1,10 +1,10 @@
 FROM python:3.10-slim
 
-RUN pip install --no-cache-dir awscli
+RUN pip3 install --no-cache-dir awscli
 
 WORKDIR /app
 
 COPY . /app
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["python3", "app.py"]
