@@ -140,7 +140,7 @@ open up you local host and port
 
 ## Save pass:
 
-# sHNcOffmmFMPi1eLXaP6TOebvsAe90rDwFtGXXg9L5+ACRBjOkW1
+key
 
 ## Run from terminal:
 
