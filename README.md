@@ -140,15 +140,15 @@ open up you local host and port
 
 ## Save pass:
 
-key
+# sHNcOffmmFMPi1eLXaP6TOebvsAe90rDwFtGXXg9L5+ACRBjOkW1
 
 ## Run from terminal:
 
-docker build -t chickenapp.azurecr.io/chicken:latest .
+docker build -t lipedema.azurecr.io/lipedema:latest .
 
-docker login chickenapp.azurecr.io
+docker login lipedema.azurecr.io
+(username is lipedema)
 
-docker push chickenapp.azurecr.io/chicken:latest
 
 
 ## Deployment Steps:
